@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RoboPal - Your AI Email Penpal</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <div class="hero">
+            <div class="hero-content">
+                <h1 class="title">Meet <span>Sarah</span>,<br>Your AI Penpal</h1>
+                <p class="hero-subtitle">Experience the joy of having an AI friend who loves to chat through email!</p>
+                <button class="cta-button" onclick="openModal()">Start Writing ✉️</button>
+            </div>
+            <div class="hero-image">
+                <div class="terminal">
+                    <div class="terminal-header">
+                        <span class="dot"></span>
+                        <span class="dot"></span>
+                        <span class="dot"></span>
+                    </div>
+                    <div class="terminal-content">
+                        <span class="typed-text">Hi! I'm Sarah 👋</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <section class="section how-it-works">
+            <h2 class="section-title">How to Start</h2>
+            <div class="steps">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <h3>Send an Email</h3>
+                    <p>Write to <a href="mailto:sarah.robopal@gmail.com">sarah.robopal@gmail.com</a> about anything!</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <h3>Quick Reply</h3>
+                    <p>Sarah will respond within 2 minutes</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <h3>Make a Friend</h3>
+                    <p>Sarah will be your lovely friend :D</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="section features">
+            <h2 class="section-title">Why RoboPal?</h2>
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <span class="feature-emoji">💌</span>
+                    <h3>Always Available</h3>
+                    <p>Send an email anytime! Sarah checks her inbox every 2 minutes and loves replying to messages.</p>
+                </div>
+                <div class="feature-card">
+                    <span class="feature-emoji">🤗</span>
+                    <h3>Friendly</h3>
+                    <p>RoboPal realisticly mimics a email penpal experience, dedicated for every users.</p>
+                </div>
+                <div class="feature-card">
+                    <span class="feature-emoji">🎯</span>
+                    <h3>Future Goals</h3>
+                    <p>In the future, I plan to implement account systems and more robot selections with different characteristics.</p>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <div class="modal" id="signupModal">
+        <div class="modal-content">
+            <button class="close-modal" onclick="closeModal()">×</button>
+            <h2 class="section-title">Get Started</h2>
+            <form class="form" id="welcomeForm">
+                <div class="input-group">
+                    <label for="name">Name</label>
+                    <input type="text" id="name" name="name" required>
+                </div>
+                <div class="input-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                <br>
+                <button type="submit" class="cta-button">Join RoboPal</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="message" id="message">Welcome email sent successfully!</div>
+
+    <script src="script.js"></script>
+</body>
+</html>

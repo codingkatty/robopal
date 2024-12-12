@@ -69,7 +69,7 @@ def send_reply(to_email, subject, msg):
         msg_reply = MIMEMultipart()
         msg_reply['From'] = EMAIL
         msg_reply['To'] = to_email
-        msg_reply['Subject'] = 'Re: ' + subject
+        msg_reply['Subject'] = 'Sarah\'s Reply 💖'
 
         email_body = get_email_body(msg)
         response = model.generate_content(
@@ -118,6 +118,10 @@ def send_email(to_email, subject, body):
         server.quit()
     except Exception as e:
         print(f"Error sending email: {e}")
+
+@app.route('/', methods=['GET'])
+def home():
+    return jsonify({'message': '200 OK'}), 200
 
 if __name__ == '__main__':
     scheduler = BackgroundScheduler(
