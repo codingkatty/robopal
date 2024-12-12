@@ -23,6 +23,7 @@ genai.configure(api_key=os.environ.get('API_KEY'))
 model = genai.GenerativeModel("gemini-1.5-flash")
 
 def check_emails():
+    print("Checking emails...")
     try:
         mail = imaplib.IMAP4_SSL(IMAP_SERVER, IMAP_PORT)
         mail.login(EMAIL, PASSWORD)
