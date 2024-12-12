@@ -16,7 +16,7 @@ IMAP_SERVER = 'imap.gmail.com'
 IMAP_PORT = 993
 SMTP_SERVER = 'smtp.gmail.com'
 SMTP_PORT = 587
-EMAIL = 'sarah.robopal@gmail.com'
+EMAIL = os.environ.get('EMAIL')
 PASSWORD = os.environ.get('PASSWORD')
 
 genai.configure(api_key=os.environ.get('API_KEY'))
@@ -66,7 +66,7 @@ def send_reply(to_email, subject, msg):
 
         email_body = get_email_body(msg)
         response = model.generate_content(
-            "Write a reply to the following email as a friend. You're Sarah, a friendly and charming girl. Here's the email:" + email_body
+            "Write a reply to the following email as a friend. You're Sarah, a friendly and charming girl. Here's the email:\n" + email_body
         )
 
         reply_body = response.text
@@ -117,6 +117,7 @@ if __name__ == '__main__':
     scheduler.add_job(func=check_emails, trigger="interval", minutes=5)
     scheduler.start()
     try:
-        app.run(debug=True)
+        port = int(os.environ.get('PORT', 5000))
+        app.run(host='0.0.0.0', port=port, debug=False)
     except (KeyboardInterrupt, SystemExit):
         scheduler.shutdown()
