@@ -30,6 +30,7 @@ def check_emails():
 
         status, messages = mail.search(None, 'UNSEEN')
         email_ids = messages[0].split()
+        print(email_ids)
 
         for email_id in email_ids:
             status, msg_data = mail.fetch(email_id, '(RFC822)')
@@ -114,7 +115,7 @@ def send_email(to_email, subject, body):
 
 if __name__ == '__main__':
     scheduler = BackgroundScheduler()
-    scheduler.add_job(func=check_emails, trigger="interval", minutes=5)
+    scheduler.add_job(func=check_emails, trigger="interval", minutes=2)
     scheduler.start()
     try:
         port = int(os.environ.get('PORT', 5000))
