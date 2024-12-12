@@ -8,6 +8,9 @@ import email
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 from apscheduler.schedulers.background import BackgroundScheduler
+import pytz
+import logging
+from datetime import datetime
 
 app = Flask(__name__)
 CORS(app)
@@ -21,6 +24,8 @@ PASSWORD = os.environ.get('PASSWORD')
 
 genai.configure(api_key=os.environ.get('API_KEY'))
 model = genai.GenerativeModel("gemini-1.5-flash")
+
+logging.basicConfig(level=logging.INFO)
 
 def check_emails():
     print("Checking emails...")
@@ -115,11 +120,26 @@ def send_email(to_email, subject, body):
         print(f"Error sending email: {e}")
 
 if __name__ == '__main__':
-    scheduler = BackgroundScheduler()
-    scheduler.add_job(func=check_emails, trigger="interval", minutes=2)
+    scheduler = BackgroundScheduler(
+        daemon=True,
+        timezone=pytz.UTC,
+        job_defaults={
+            'coalesce': False,
+            'max_instances': 1,
+            'misfire_grace_time': 60
+        }
+    )
+    
+    @scheduler.scheduled_job('interval', minutes=2)
+    def timed_job():
+        logging.info(f"Scheduler running at {datetime.now()}")
+        check_emails()
+    
     scheduler.start()
+    logging.info("Scheduler started!")
+    
     try:
         port = int(os.environ.get('PORT', 5000))
-        app.run(host='0.0.0.0', port=port, debug=False)
+        app.run(host='0.0.0.0', port=port, debug=False, use_reloader=False)
     except (KeyboardInterrupt, SystemExit):
         scheduler.shutdown()
